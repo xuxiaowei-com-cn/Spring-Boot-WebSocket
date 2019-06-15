@@ -34,6 +34,7 @@ public class WebSocketMessageBrokerConfigurerConfig implements WebSocketMessageB
         // 启用简单的消息代理并配置一个或多个前缀以过滤以代理为目标的目标（例如，前缀为“/topic”的目标）。
         config.enableSimpleBroker("/topic");
 
+        // 为绑定了 @MessageMapping 注释方法的消息指定“/app”前缀。
         // 配置一个或多个前缀以过滤以应用程序注释方法为目标的目标。
         // 例如，前缀为“/app”的目的地可以通过注释方法处理，而其他目的地可以以消息代理为目标（例如“/topic”，“/queue”）。
         // 处理消息时，将从目标中删除匹配前缀以形成查找路径。 这意味着注释不应包含目标前缀。
@@ -56,6 +57,8 @@ public class WebSocketMessageBrokerConfigurerConfig implements WebSocketMessageB
         origins.add("http://127.0.0.1:8081");
         origins.add("http://localhost:8081");
 
+        // 注册“/gs-guide-websocket”端点，启用SockJS后备选项，以便在WebSocket不可用时可以使用备用传输。
+        // SockJS 客户端将尝试连接到“/gs-guide-websocket”并使用可用的最佳传输（websocket，xhr-streaming，xhr-polling等）。
         // 启用 SockJS 后备选项。
         registry.addEndpoint("/gs-guide-websocket")
                 .addInterceptors(handshakeInterceptor())
@@ -63,5 +66,45 @@ public class WebSocketMessageBrokerConfigurerConfig implements WebSocketMessageB
                 .withSockJS();
 
     }
+
+//    /**
+//     * 配置在注释方法中提取消息的有效负载时以及在发送消息时使用的消息转换器（例如，通过“代理”SimpMessagingTemplate）。
+//     * <p>
+//     * 提供的列表（最初为空）可用于添加消息转换器，而布尔返回值用于确定是否还应添加默认消息。
+//     *
+//     * @param messageConverters 要配置的转换器（最初是一个空列表）
+//     * @return 是否还要添加默认转换器
+//     */
+//    @Override
+//    public boolean configureMessageConverters(List<MessageConverter> messageConverters) {
+//        System.err.println("configureMessageConverters");
+//        return false;
+//    }
+//
+//    /**
+//     * 配置用于来自WebSocket客户端的传入消息的{@link org.springframework.messaging.MessageChannel}。
+//     * 默认情况下，通道由大小为1的线程池支持。建议自定义线程池设置以供生产使用。
+//     */
+//    @Override
+//    public void configureClientInboundChannel(ChannelRegistration registration) {
+//        System.err.println("configureClientInboundChannel");
+//    }
+//
+//    /**
+//     * 将用于出站消息的{@link org.springframework.messaging.MessageChannel}配置为WebSocket客户端。
+//     * 默认情况下，通道由大小为1的线程池支持。建议自定义线程池设置以供生产使用。
+//     */
+//    @Override
+//    public void configureClientOutboundChannel(ChannelRegistration registration) {
+//        System.err.println("configureClientOutboundChannel");
+//    }
+//
+//    /**
+//     * 配置与处理从 WebSocket 客户端接收和发送到 WebSocket 客户端的消息相关的选项。
+//     */
+//    @Override
+//    public void configureWebSocketTransport(WebSocketTransportRegistration registry) {
+//        System.err.println("configureWebSocketTransport");
+//    }
 
 }
