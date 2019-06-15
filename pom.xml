@@ -101,6 +101,12 @@
             <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
 
+        <!-- - Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
         <!-- - spring-boot 测试，任何项目都包含 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

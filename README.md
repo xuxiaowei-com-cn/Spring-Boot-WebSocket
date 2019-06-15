@@ -19,6 +19,9 @@ Spring Boot WebSocket 项目
 
 ### Spring Boot 
     
+- Developer Tools
+    - Lombok                    注解。
+    
 - Web
     - String Web Starter        使用Tomcat和Spring MVC进行全栈Web开发
     
