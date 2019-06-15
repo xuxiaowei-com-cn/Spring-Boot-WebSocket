@@ -7,7 +7,10 @@ var stompClient = null; // stomp客户端
  * 连接
  */
 function connect() {
-    var socket = new SockJS('/gs-guide-websocket'); // "SockJS" 构造函数
+
+    // 不谢域名：默认当前域名
+    // 写域名：支持跨域（仅在此处写域名即可，其他位置不需要写域名）
+    var socket = new SockJS('http://127.0.0.1:8080/gs-guide-websocket'); // "SockJS" 构造函数
 
     stompClient = Stomp.over(socket); // 过度
 
@@ -19,6 +22,7 @@ function connect() {
 
         console.log('Stomp SockJS 已连接');
 
+        // 不需要写域名（域名同上）
         stompClient.subscribe('/topic/greetings', function (greeting) {
             showGreeting(JSON.parse(greeting.body).content);
         });
@@ -70,6 +74,7 @@ function sendName() {
 
     stompClient.debug = false; // 禁用控制台打印你发送的内容
 
+    // 不需要写域名（域名同上）
     stompClient.send("/app/hello", {}, JSON.stringify({'name': $("#name").val()}));
 
     console.log("Stomp SockJS 已发送 - " + new Date().toLocaleTimeString())

@@ -1,3 +1,8 @@
+# 服务器 配置
+server:
+  # 端口
+  port: 8080
+#
 # Spring Boot 配置
 spring:
   #

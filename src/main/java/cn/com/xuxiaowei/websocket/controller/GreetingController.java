@@ -28,7 +28,7 @@ public class GreetingController {
         // 模拟延迟
         // <code>Thread.sleep(1000);</code>
 
-        return new Greeting("你好, " + HtmlUtils.htmlEscape(message.getName()) + "!");
+        return new Greeting("你好（8080端口）, " + HtmlUtils.htmlEscape(message.getName()) + "!");
     }
 
 }

@@ -6,6 +6,9 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * WebSocket 配置
  *
@@ -37,8 +40,17 @@ public class WebSocketMessageBrokerConfigurerConfig implements WebSocketMessageB
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
 
-        // 启用SockJS后备选项。
-        registry.addEndpoint("/gs-guide-websocket").withSockJS();
+        // 跨域（注意端口与协议）
+        List<String> origins = new ArrayList<>(10);
+
+        origins.add("http://127.0.0.1:8080");
+        origins.add("http://localhost:8080");
+
+        origins.add("http://127.0.0.1:8081");
+        origins.add("http://localhost:8081");
+
+        // 启用 SockJS 后备选项。
+        registry.addEndpoint("/gs-guide-websocket").setAllowedOrigins(origins.toArray(new String[]{})).withSockJS();
     }
 
 }
