@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello WebSocket</title>
+
+    <!-- BootStrap CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.4.1/css/bootstrap.min.css}">
+
+    <!-- 自定义 CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+
+</head>
+<body>
+
+<noscript>
+    <h2 style="color: #ff0000">
+        似乎您的浏览器不支持Javascript！ Websocket依赖于启用Javascript。 请启用Javascript并重新加载此页面！
+    </h2>
+</noscript>
+
+<div id="main-content" class="container">
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="connect">WebSocket连接：</label>
+                    <button id="connect" class="btn btn-default" type="submit">连接</button>
+                    <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">
+                        断开
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            <form class="form-inline">
+                <div class="form-group">
+                    <label for="name">你的名字？</label>
+                    <input type="text" id="name" class="form-control" placeholder="请输入内容...">
+                </div>
+                <button id="send" class="btn btn-default" type="submit">发送</button>
+            </form>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table id="conversation" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>回复</th>
+                </tr>
+                </thead>
+                <tbody id="greetings">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+</body>
+
+<!-- JQuery JS -->
+<script type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+
+<!-- Sockjs JS -->
+<script type="text/javascript" th:src="@{/webjars/sockjs-client/1.1.2/sockjs.js}"></script>
+
+<!-- Stomp JS -->
+<script type="text/javascript" th:src="@{/webjars/stomp-websocket/2.3.3-1/stomp.js}"></script>
+
+<!-- 自定义 JS -->
+<script type="text/javascript" th:src="@{/js/script.js}"></script>
+
+</html>
