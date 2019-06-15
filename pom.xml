@@ -19,19 +19,30 @@
     </properties>
 
     <dependencies>
+
+        <!-- 以上为项目自定义依赖 -->
+
+
+        <!-- 以下为创建 Spring Boot 时的依赖 -->
+
+
+        <!-- - Thymeleaf -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+        <!-- - Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <!-- - WebSocket -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
 
+        <!-- - spring-boot 测试，任何项目都包含 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
