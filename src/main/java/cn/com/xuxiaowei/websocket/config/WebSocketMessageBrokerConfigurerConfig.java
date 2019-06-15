@@ -1,10 +1,12 @@
 package cn.com.xuxiaowei.websocket.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
+import org.springframework.web.socket.server.HandshakeInterceptor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,11 @@ import java.util.List;
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebSocketMessageBrokerConfigurerConfig implements WebSocketMessageBrokerConfigurer {
+
+    @Bean
+    public HandshakeInterceptor handshakeInterceptor() {
+        return new HandshakeInterceptorConfig();
+    }
 
     /**
      * 配置消息代理选项。
@@ -50,7 +57,11 @@ public class WebSocketMessageBrokerConfigurerConfig implements WebSocketMessageB
         origins.add("http://localhost:8081");
 
         // 启用 SockJS 后备选项。
-        registry.addEndpoint("/gs-guide-websocket").setAllowedOrigins(origins.toArray(new String[]{})).withSockJS();
+        registry.addEndpoint("/gs-guide-websocket")
+                .addInterceptors(handshakeInterceptor())
+                .setAllowedOrigins(origins.toArray(new String[]{}))
+                .withSockJS();
+
     }
 
 }
