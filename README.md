@@ -14,5 +14,11 @@ Spring Boot WebSocket 项目
 	
 ### 其他依赖
 
+- Webjars
+    - webjars-locator-core      提供 JAR 包（暂未使用）
+    - sockjs-client             提供 sockjs
+    - stomp-websocket           提供 stomp
+    - bootstrap                 提供 bootstrap
+    - jquery                    提供 jquery
 
 ###

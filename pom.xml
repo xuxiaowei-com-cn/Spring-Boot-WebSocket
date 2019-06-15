@@ -16,9 +16,68 @@
 
     <properties>
         <java.version>1.8</java.version>
+
+
+        <!-- 提供 JAR 包（暂未使用） -->
+        <!-- https://mvnrepository.com/artifact/org.webjars/webjars-locator-core -->
+        <webjars-locator-core.version>0.37</webjars-locator-core.version>
+
+        <!-- 提供 sockjs -->
+        <!-- 引入方式：/webjars/sockjs-client/1.1.2/sockjs.min.js -->
+        <!-- https://mvnrepository.com/artifact/org.webjars/sockjs-client -->
+        <sockjs-client.version>1.1.2</sockjs-client.version>
+
+        <!-- 提供 stomp -->
+        <!-- 引入方式：/webjars/stomp-websocket/2.3.3-1/stomp.min.js -->
+        <!-- https://mvnrepository.com/artifact/org.webjars/stomp-websocket -->
+        <stomp-websocket.version>2.3.3-1</stomp-websocket.version>
+
+        <!-- 提供 bootstrap -->
+        <!-- 引入方式：/webjars/bootstrap/3.4.1/css/bootstrap.min.css -->
+        <!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
+        <webjars-bootstrap.version>3.4.1</webjars-bootstrap.version>
+
+        <!-- 提供 jquery -->
+        <!-- 引入方式：/webjars/jquery/3.4.1/jquery.min.js -->
+        <!-- https://mvnrepository.com/artifact/org.webjars/jquery -->
+        <webjars-jquery.version>3.4.1</webjars-jquery.version>
+
+
     </properties>
 
     <dependencies>
+
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>webjars-locator-core</artifactId>
+            <version>${webjars-locator-core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>sockjs-client</artifactId>
+            <version>${sockjs-client.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>stomp-websocket</artifactId>
+            <version>${stomp-websocket.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>${webjars-bootstrap.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>${webjars-jquery.version}</version>
+        </dependency>
+
 
         <!-- 以上为项目自定义依赖 -->
 
