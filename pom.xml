@@ -25,6 +25,7 @@
         <!-- 提供 sockjs -->
         <!-- 引入方式：/webjars/sockjs-client/1.1.2/sockjs.min.js -->
         <!-- https://mvnrepository.com/artifact/org.webjars/sockjs-client -->
+        <!-- https://github.com/sockjs/sockjs-client -->
         <sockjs-client.version>1.1.2</sockjs-client.version>
 
         <!-- 提供 stomp -->
