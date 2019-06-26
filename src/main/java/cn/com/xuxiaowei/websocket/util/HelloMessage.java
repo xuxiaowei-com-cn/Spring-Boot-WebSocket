@@ -1,26 +1,21 @@
 package cn.com.xuxiaowei.websocket.util;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 /**
  * 用户接收 WebSocket
  *
  * @author xuxiaowei
  */
+@Data
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class HelloMessage {
 
     private String name;
 
-    public HelloMessage() {
-    }
-
-    public HelloMessage(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
