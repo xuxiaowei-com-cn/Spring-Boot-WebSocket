@@ -34,9 +34,9 @@
         <stomp-websocket.version>2.3.3-1</stomp-websocket.version>
 
         <!-- 提供 bootstrap -->
-        <!-- 引入方式：/webjars/bootstrap/3.4.1/css/bootstrap.min.css -->
+        <!-- 引入方式：/webjars/bootstrap/4.3.1/css/bootstrap.min.css -->
         <!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
-        <webjars-bootstrap.version>3.4.1</webjars-bootstrap.version>
+        <webjars-bootstrap.version>4.3.1</webjars-bootstrap.version>
 
         <!-- 提供 jquery -->
         <!-- 引入方式：/webjars/jquery/3.4.1/jquery.min.js -->
