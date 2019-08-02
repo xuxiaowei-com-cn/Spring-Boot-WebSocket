@@ -20,7 +20,7 @@
 
         <!-- 提供 JAR 包（暂未使用） -->
         <!-- https://mvnrepository.com/artifact/org.webjars/webjars-locator-core -->
-        <webjars-locator-core.version>0.37</webjars-locator-core.version>
+        <webjars-locator-core.version>0.38</webjars-locator-core.version>
 
         <!-- 提供 sockjs -->
         <!-- 引入方式：/webjars/sockjs-client/1.1.2/sockjs.min.js -->
