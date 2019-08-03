@@ -103,7 +103,7 @@ function sendMessage() {
     // 如果在 WebSocketMessageBrokerConfigurer#configureMessageBroker(MessageBrokerRegistry) 实现类中
     // 配置了 registry.setApplicationDestinationPrefixes()，需要加上在加上已配置的前缀
     stompClient.send("/app/toFriend", {}, JSON.stringify({
-        'from': $("#from").val(),
+        'to': $("#to").val(),
         'msg': $("#msg").val()
     }));
 
