@@ -24,10 +24,15 @@
 <div class="container">
 
     <div class="form-group">
+        <H4>广播式 WebSocket</H4>
+    </div>
+
+    <div class="form-group">
         <label>WebSocket 连接：</label>
         <div>
+            <a th:href="@{/}" class="btn btn-secondary" role="button" aria-pressed="true">首页</a>
             <button type="submit" class="btn btn-secondary" id="connect">连接</button>
-            <button type="submit" class="btn btn-secondary" id="disconnect">断开</button>
+            <button type="submit" class="btn btn-secondary" id="disconnect" style="display: none;">断开</button>
         </div>
     </div>
 
@@ -36,10 +41,9 @@
         <form id="form-welcome">
 
             <div class="form-group">
-                <label for="from">来自</label>
-                <input type="text" class="form-control" id="from" aria-describedby="fromHelp" name="from"
-                       th:value="${from}">
-                <small id="fromHelp" class="form-text text-muted">使用 Session ID 作为你的用户名，相当于你已登录。修改后，相当于使用别的用户。</small>
+                <label for="name">用户</label>
+                <input type="text" class="form-control" id="name" aria-describedby="nameHelp" th:value="${name}" readonly>
+                <small id="nameHelp" class="form-text text-muted">登录时的用户名。</small>
             </div>
 
             <div class="form-group">
@@ -49,7 +53,7 @@
             </div>
 
             <div class="form-group">
-                <label for="msg">发送广播消息：</label>
+                <label for="send">发送广播消息：</label>
                 <div>
                     <button type="submit" class="btn btn-secondary" id="send">发送</button>
                 </div>
@@ -58,7 +62,7 @@
         </form>
 
         <div class="form-group">
-            <label for="msg">来自广播的消息：</label>
+            <label for="conversation">来自广播的消息：</label>
             <table id="conversation" class="table table-striped">
                 <tbody id="message">
                 </tbody>

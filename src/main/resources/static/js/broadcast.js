@@ -22,6 +22,8 @@ function connect() {
     stompClient.connect({}, function (frame) { // 连接
 
         $("#isConnect").show();
+        $("#connect").hide();
+        $("#disconnect").show();
 
         setConnected(true); // 设置已连接
 
@@ -74,6 +76,8 @@ function disconnect() {
     }
 
     $("#isConnect").hide();
+    $("#disconnect").hide();
+    $("#connect").show();
 
     // 设置已断开连接
     setConnected(false);
@@ -98,7 +102,6 @@ function sendMessage() {
     // 如果在 WebSocketMessageBrokerConfigurer#configureMessageBroker(MessageBrokerRegistry) 实现类中
     // 配置了 registry.setApplicationDestinationPrefixes()，需要加上在加上已配置的前缀
     stompClient.send("/app/welcome", {}, JSON.stringify({
-        'from': $("#from").val(),
         'msg': $("#msg").val()
     }));
 
