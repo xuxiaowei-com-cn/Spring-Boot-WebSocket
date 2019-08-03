@@ -10,8 +10,8 @@ function connect() {
 
     // 不谢域名：默认当前域名
     // 写域名：支持跨域（仅在此处写域名即可，其他位置不需要写域名）
-    // 连接 SockJS 的 endpoint 名称为 "/websocket"。
-    var socket = new SockJS('http://127.0.0.1:8080/websocket'); // "SockJS" 构造函数
+    // 连接 SockJS 的 endpoint 名称为 "/toAll"。
+    var socket = new SockJS('http://127.0.0.1:8080/toAll'); // "SockJS" 构造函数
 
     // 使用 STOMP 子协议的 WebSocket 客户端
     stompClient = Stomp.over(socket);

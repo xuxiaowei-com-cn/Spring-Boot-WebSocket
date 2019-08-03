@@ -65,10 +65,10 @@ public class WebSocketMessageBrokerConfigurerConfiguration implements WebSocketM
         origins.add("http://localhost:8081");
 
         // 注册一个 STOMP 的 endpoint，并指定使用 SockJS 协议。
-        // 注册“/websocket”端点，启用SockJS后备选项，以便在WebSocket不可用时可以使用备用传输。
-        // SockJS 客户端将尝试连接到“/websocket”并使用可用的最佳传输（websocket，xhr-streaming，xhr-polling等）。
+        // 注册“/toAll”端点，启用SockJS后备选项，以便在 toAll 不可用时可以使用备用传输。
+        // SockJS 客户端将尝试连接到“/toAll”并使用可用的最佳传输（toAll，xhr-streaming，xhr-polling等）。
         // 启用 SockJS 后备选项。
-        registry.addEndpoint("/websocket")
+        registry.addEndpoint("/toAll")
                 .addInterceptors(handshakeInterceptorConfiguration())
                 .setAllowedOrigins(origins.toArray(new String[]{}))
                 .withSockJS();
