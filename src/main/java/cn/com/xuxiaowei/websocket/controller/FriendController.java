@@ -103,7 +103,7 @@ public class FriendController {
         private String from;
 
         /**
-         * 消息发送者
+         * 消息接收者
          */
         private String to;
 
