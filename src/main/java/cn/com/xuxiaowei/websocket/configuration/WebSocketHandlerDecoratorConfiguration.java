@@ -22,6 +22,7 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.WebSocketHandlerDecorator;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,8 +38,17 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
      */
     private static Map<String, WebSocketSession> allUsers;
 
+    /**
+     * 群聊在线人数
+     * <p>
+     * key：群号
+     * values：全部群聊成员
+     */
+    private static Map<String, List<Map<String, WebSocketSession>>> chatRoomUsers;
+
     static {
         allUsers = new HashMap<>();
+        chatRoomUsers = new HashMap<>();
     }
 
     WebSocketHandlerDecoratorConfiguration(WebSocketHandler delegate) {
