@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>广播式 WebSocket</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- BootStrap CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+
+    <!-- 自定义 CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/broadcast.css}">
+
+</head>
+<body>
+
+<noscript>
+    <h2 style="color: #ff0000">
+        似乎您的浏览器不支持Javascript！ Websocket依赖于启用Javascript。 请启用Javascript并重新加载此页面！
+    </h2>
+</noscript>
+
+<div class="container">
+
+    <div class="form-group">
+        <label>WebSocket 连接：</label>
+        <div>
+            <button type="submit" class="btn btn-secondary" id="connect">连接</button>
+            <button type="submit" class="btn btn-secondary" id="disconnect">断开</button>
+        </div>
+    </div>
+
+    <div id="isConnect" style="display: none;">
+
+        <form id="form-welcome">
+
+            <div class="form-group">
+                <label for="from">来自</label>
+                <input type="text" class="form-control" id="from" aria-describedby="fromHelp" name="from"
+                       th:value="${from}">
+                <small id="fromHelp" class="form-text text-muted">使用 Session ID 作为你的用户名，相当于你已登录。修改后，相当于使用别的用户。</small>
+            </div>
+
+            <div class="form-group">
+                <label for="msg">需要广播的消息</label>
+                <input type="text" class="form-control" id="msg" name="msg" aria-describedby="msgHelp">
+                <small id="msgHelp" class="form-text text-muted">输入你想广播的消息</small>
+            </div>
+
+            <div class="form-group">
+                <label for="msg">发送广播消息：</label>
+                <div>
+                    <button type="submit" class="btn btn-secondary" id="send">发送</button>
+                </div>
+            </div>
+
+        </form>
+
+        <div class="form-group">
+            <label for="msg">来自广播的消息：</label>
+            <table id="conversation" class="table table-striped">
+                <tbody id="message">
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+<!-- JQuery JS -->
+<script type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+
+<!-- BootStrap JS -->
+<script type="text/javascript" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+
+<!-- SockJS JS，SockJS 客户端脚本 -->
+<script type="text/javascript" th:src="@{/webjars/sockjs-client/1.1.2/sockjs.min.js}"></script>
+
+<!-- STOMP JS，STOMP 协议的客户端脚本 -->
+<script type="text/javascript" th:src="@{/webjars/stomp-websocket/2.3.3-1/stomp.min.js}"></script>
+
+<!-- 自定义 JS -->
+<script type="text/javascript" th:src="@{/js/broadcast.js}"></script>
+
+</html>

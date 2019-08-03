@@ -2,64 +2,22 @@
 <html lang="zh" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Hello WebSocket</title>
+    <title>Index</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- BootStrap CSS -->
     <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
 
     <!-- 自定义 CSS -->
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/index.css}">
 
 </head>
 <body>
 
-<noscript>
-    <h2 style="color: #ff0000">
-        似乎您的浏览器不支持Javascript！ Websocket依赖于启用Javascript。 请启用Javascript并重新加载此页面！
-    </h2>
-</noscript>
+<div class="container">
 
-<div id="main-content" class="container">
-
-    <div class="row">
-
-        <div class="col-md-6">
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="connect">WebSocket连接：</label>
-                    <button id="connect" class="btn btn-outline-secondary" type="submit">连接</button>
-                    <button id="disconnect" class="btn btn-outline-secondary" type="submit" disabled="disabled">
-                        断开
-                    </button>
-                </div>
-            </form>
-        </div>
-
-        <div class="col-md-6">
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="name">你的名字？</label>
-                    <input type="text" id="name" class="form-control" placeholder="请输入内容...">
-                </div>
-                <button id="send" class="btn btn-outline-secondary" type="submit">发送</button>
-            </form>
-        </div>
-
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <table id="conversation" class="table table-striped">
-                <thead>
-                <tr>
-                    <th>回复</th>
-                </tr>
-                </thead>
-                <tbody id="greetings">
-                </tbody>
-            </table>
-        </div>
-    </div>
+    <a th:href="@{/broadcast}" class="btn btn-link" role="button" aria-pressed="true">广播式 WebSocket</a>
 
 </div>
 
@@ -68,13 +26,10 @@
 <!-- JQuery JS -->
 <script type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
 
-<!-- Sockjs JS -->
-<script type="text/javascript" th:src="@{/webjars/sockjs-client/1.1.2/sockjs.js}"></script>
-
-<!-- Stomp JS -->
-<script type="text/javascript" th:src="@{/webjars/stomp-websocket/2.3.3-1/stomp.js}"></script>
+<!-- BootStrap JS -->
+<script type="text/javascript" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 
 <!-- 自定义 JS -->
-<script type="text/javascript" th:src="@{/js/script.js}"></script>
+<script type="text/javascript" th:src="@{/js/index.js}"></script>
 
 </html>
