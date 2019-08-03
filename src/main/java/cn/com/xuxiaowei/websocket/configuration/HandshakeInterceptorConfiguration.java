@@ -9,6 +9,7 @@ import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 
+import java.net.URI;
 import java.util.Map;
 
 /**
@@ -27,6 +28,11 @@ public class HandshakeInterceptorConfiguration implements HandshakeInterceptor {
     static final String WEB_SOCKET_USER_NAME = "WEB_SOCKET_USER_NAME";
 
     /**
+     * WebSocket URL
+     */
+    static final String WEB_SOCKET_URL = "WEB_SOCKET_URL";
+
+    /**
      * @param attributes 用于在{@link WebSocketHandler}中的{@link WebSocketSession#getAttributes()}中获取
      */
     @Override
@@ -36,6 +42,9 @@ public class HandshakeInterceptorConfiguration implements HandshakeInterceptor {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String name = authentication.getName();
         attributes.put(WEB_SOCKET_USER_NAME, name);
+
+        URI uri = request.getURI();
+        attributes.put(WEB_SOCKET_URL, uri);
 
         log.debug("");
         log.debug("用户：" + name + " 建立连接");
