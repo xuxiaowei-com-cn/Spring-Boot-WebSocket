@@ -78,6 +78,11 @@ public class WebSocketMessageBrokerConfigurerConfiguration implements WebSocketM
                 .setAllowedOrigins(origins.toArray(new String[]{}))
                 .withSockJS();
 
+        registry.addEndpoint("/chatRoom/{chatRoomId}")
+                .addInterceptors(handshakeInterceptorConfiguration())
+                .setAllowedOrigins(origins.toArray(new String[]{}))
+                .withSockJS();
+
     }
 
     @Bean
