@@ -33,12 +33,12 @@ import java.util.Map;
 public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDecorator {
 
     /**
-     * 在线用户
+     * 总在线用户
      */
-    private static Map<String, WebSocketSession> users;
+    private static Map<String, WebSocketSession> allUsers;
 
     static {
-        users = new HashMap<>();
+        allUsers = new HashMap<>();
     }
 
     WebSocketHandlerDecoratorConfiguration(WebSocketHandler delegate) {
@@ -58,7 +58,7 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
         String name = attributes.get(HandshakeInterceptorConfiguration.WEB_SOCKET_USER_NAME).toString();
         System.err.println("上线: " + name);
 
-        users.put(name, session);
+        allUsers.put(name, session);
 
         super.afterConnectionEstablished(session);
     }
@@ -109,7 +109,7 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
         String name = attributes.get(HandshakeInterceptorConfiguration.WEB_SOCKET_USER_NAME).toString();
         System.err.println("离线: " + name);
 
-        users.remove(name);
+        allUsers.remove(name);
 
         super.afterConnectionClosed(session, closeStatus);
     }
