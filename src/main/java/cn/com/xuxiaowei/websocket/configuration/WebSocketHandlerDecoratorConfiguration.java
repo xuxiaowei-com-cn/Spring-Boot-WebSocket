@@ -21,6 +21,7 @@ import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.WebSocketHandlerDecorator;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -30,6 +31,15 @@ import java.util.Map;
  * @since 0.0.1
  */
 public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDecorator {
+
+    /**
+     * 在线用户
+     */
+    private static Map<String, WebSocketSession> users;
+
+    static {
+        users = new HashMap<>();
+    }
 
     WebSocketHandlerDecoratorConfiguration(WebSocketHandler delegate) {
         super(delegate);
@@ -45,8 +55,10 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
 
         // 客户端与服务器端建立连接后，此处记录谁上线了
         Map<String, Object> attributes = session.getAttributes();
-        String username = attributes.get(HandshakeInterceptorConfiguration.WEB_SOCKET_USER_SESSION_ID).toString();
-        System.err.println("上线: " + username);
+        String name = attributes.get(HandshakeInterceptorConfiguration.WEB_SOCKET_USER_NAME).toString();
+        System.err.println("上线: " + name);
+
+        users.put(name, session);
 
         super.afterConnectionEstablished(session);
     }
@@ -60,8 +72,8 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
     public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
 
         Map<String, Object> attributes = session.getAttributes();
-        String username = attributes.get(HandshakeInterceptorConfiguration.WEB_SOCKET_USER_SESSION_ID).toString();
-        System.err.println("接收到用户: " + username + " 的消息");
+        String name = attributes.get(HandshakeInterceptorConfiguration.WEB_SOCKET_USER_NAME).toString();
+        System.err.println("接收到用户: " + name + " 的消息");
         System.err.println("消息内容：" + message.getPayload().toString());
 
         super.handleMessage(session, message);
@@ -76,8 +88,8 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
     public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
 
         Map<String, Object> attributes = session.getAttributes();
-        String username = attributes.get(HandshakeInterceptorConfiguration.WEB_SOCKET_USER_SESSION_ID).toString();
-        System.err.println("接收到用户: " + username + " 的异常");
+        String name = attributes.get(HandshakeInterceptorConfiguration.WEB_SOCKET_USER_NAME).toString();
+        System.err.println("接收到用户: " + name + " 的异常");
         System.err.println("异常信息：" + exception.getMessage());
 
         super.handleTransportError(session, exception);
@@ -94,8 +106,10 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
 
         // 客户端与服务器端断开连接后，此处记录谁下线了
         Map<String, Object> attributes = session.getAttributes();
-        String username = attributes.get(HandshakeInterceptorConfiguration.WEB_SOCKET_USER_SESSION_ID).toString();
-        System.err.println("离线: " + username);
+        String name = attributes.get(HandshakeInterceptorConfiguration.WEB_SOCKET_USER_NAME).toString();
+        System.err.println("离线: " + name);
+
+        users.remove(name);
 
         super.afterConnectionClosed(session, closeStatus);
     }
