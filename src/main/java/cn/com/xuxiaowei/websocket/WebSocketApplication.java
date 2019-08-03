@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * 程序执行入口
  *
  * @author xuxiaowei
+ * @since 0.0.1
  */
 @SpringBootApplication
 public class WebSocketApplication {
