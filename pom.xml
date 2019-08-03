@@ -85,7 +85,11 @@
 
         <!-- 以下为创建 Spring Boot 时的依赖 -->
 
-
+        <!-- - Security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
         <!-- - Thymeleaf -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
