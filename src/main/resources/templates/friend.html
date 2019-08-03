@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>点对点式（好友聊天）WebSocket</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- BootStrap CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}">
+
+    <!-- 自定义 CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/friend.css}">
+
+</head>
+<body>
+
+<div class="container">
+
+    <div class="form-group">
+        <H4>点对点式（好友聊天）WebSocket</H4>
+    </div>
+
+    <div class="form-group">
+        <label>WebSocket 连接：</label>
+        <div>
+            <a th:href="@{/}" class="btn btn-secondary" role="button" aria-pressed="true">首页</a>
+            <button type="submit" class="btn btn-secondary" id="connect">连接</button>
+            <button type="submit" class="btn btn-secondary" id="disconnect" style="display: none;">断开</button>
+        </div>
+    </div>
+
+    <div id="isConnect" style="display: none;">
+
+        <form id="form-welcome">
+
+            <div class="form-group">
+                <label for="name">用户</label>
+                <input type="text" class="form-control" id="name" aria-describedby="nameHelp" th:value="${name}" readonly>
+                <small id="nameHelp" class="form-text text-muted">登录时的用户名。</small>
+            </div>
+
+            <div class="form-group">
+                <label for="friend">选择好友</label>
+                <select class="form-control" id="friend" aria-describedby="friendHelp">
+                    <option>Default select</option>
+                </select>
+                <small id="friendHelp" class="form-text text-muted">默认用户间全为好友</small>
+            </div>
+
+            <div class="form-group">
+                <label for="msg">消息</label>
+                <input type="text" class="form-control" id="msg" name="msg" aria-describedby="msgHelp">
+                <small id="msgHelp" class="form-text text-muted">输入你想发送给好友的消息</small>
+            </div>
+
+            <div class="form-group">
+                <label for="send">发送消息：</label>
+                <div>
+                    <button type="submit" class="btn btn-secondary" id="send">发送</button>
+                </div>
+            </div>
+
+        </form>
+
+        <div class="form-group">
+            <label for="conversation">来自广播的消息：</label>
+            <table id="conversation" class="table table-striped">
+                <tbody id="message">
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+<!-- JQuery JS -->
+<script type="text/javascript" th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+
+<!-- BootStrap JS -->
+<script type="text/javascript" th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+
+<!-- SockJS JS，SockJS 客户端脚本 -->
+<script type="text/javascript" th:src="@{/webjars/sockjs-client/1.1.2/sockjs.min.js}"></script>
+
+<!-- STOMP JS，STOMP 协议的客户端脚本 -->
+<script type="text/javascript" th:src="@{/webjars/stomp-websocket/2.3.3-1/stomp.min.js}"></script>
+
+<!-- 自定义 JS -->
+<script type="text/javascript" th:src="@{/js/friend.js}"></script>
+
+</html>

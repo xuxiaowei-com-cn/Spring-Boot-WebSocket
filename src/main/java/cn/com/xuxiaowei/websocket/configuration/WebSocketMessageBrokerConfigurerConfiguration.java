@@ -37,7 +37,7 @@ public class WebSocketMessageBrokerConfigurerConfiguration implements WebSocketM
 
         // 启用简单的消息代理并配置一个或多个前缀以过滤以代理为目标的目标（例如，前缀为“/topic”的目标）。
         // 广播式配置一个 /topic 消息代理。
-        registry.enableSimpleBroker("/topic");
+        registry.enableSimpleBroker("/topic", "/queue");
 
         // 为绑定了 @MessageMapping 注释方法的消息指定“/app”前缀。
         // 配置一个或多个前缀以过滤以应用程序注释方法为目标的目标。
@@ -69,6 +69,11 @@ public class WebSocketMessageBrokerConfigurerConfiguration implements WebSocketM
         // SockJS 客户端将尝试连接到“/websocket”并使用可用的最佳传输（websocket，xhr-streaming，xhr-polling等）。
         // 启用 SockJS 后备选项。
         registry.addEndpoint("/websocket")
+                .addInterceptors(handshakeInterceptorConfiguration())
+                .setAllowedOrigins(origins.toArray(new String[]{}))
+                .withSockJS();
+
+        registry.addEndpoint("/p2p")
                 .addInterceptors(handshakeInterceptorConfiguration())
                 .setAllowedOrigins(origins.toArray(new String[]{}))
                 .withSockJS();
