@@ -15,14 +15,17 @@
  */
 package cn.com.xuxiaowei.websocket.configuration;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.ConcurrentWebSocketSessionDecorator;
 import org.springframework.web.socket.handler.WebSocketHandlerDecorator;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * WebSocket 消息和生命周期事件的处理程序。
@@ -74,6 +77,58 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
         System.err.println("上线: " + name);
 
         allUsers.put(name, session);
+
+        // 用户上线通知
+        // 放在添加用户后面
+        onlineMsg(name, true);
+
+        // 在线用户
+        // 放在添加用户后面
+        onlineNum(name);
+    }
+
+    /**
+     * 用户上线/下线通知
+     * <p>
+     * 放在添加用户后面
+     *
+     * @param name   上线用户名
+     * @param online true 上线，false 下线
+     */
+    private void onlineMsg(String name, boolean online) throws IOException {
+        Map<String, Object> map = new HashMap<>(4);
+
+        map.put("type", "onlineMsg");
+        map.put("online", online);
+        map.put("username", name);
+        map.put("number", allUsers.size());
+        String payload = JSONObject.toJSONString(map);
+
+        for (Map.Entry<String, WebSocketSession> entry : allUsers.entrySet()) {
+            String key = entry.getKey();
+            if (!name.equals(key)) {
+                WebSocketSession value = entry.getValue();
+                value.sendMessage(new TextMessage(payload, true));
+            }
+        }
+    }
+
+    /**
+     * 在线人数
+     * <p>
+     * 放在添加用户后面
+     *
+     * @param name 当前用户
+     */
+    private void onlineNum(String name) throws IOException {
+        Set<String> users = allUsers.keySet();
+        Map<String, Object> map = new HashMap<>(4);
+        map.put("type", "onlineNum");
+        map.put("number", allUsers.size());
+        map.put("users", users);
+        String payload = JSONObject.toJSONString(map);
+        WebSocketSession webSocketSession = allUsers.get(name);
+        webSocketSession.sendMessage(new TextMessage(payload, true));
     }
 
     /**
@@ -89,7 +144,7 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
         assert principal != null;
         String name = principal.getName();
         System.err.println("接收到用户: " + name + " 的消息");
-        System.err.println("消息内容：" + message.getPayload().toString());
+        System.err.println("消息内容：\n" + message.getPayload().toString());
     }
 
     /**
@@ -125,6 +180,10 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
         System.err.println("离线: " + name);
 
         allUsers.remove(name);
+
+        // 用户下线通知
+        // 放在移除用户后面
+        onlineMsg(name, false);
 
         for (Map.Entry<String, List<String>> entry : chatRoomUsers.entrySet()) {
 
