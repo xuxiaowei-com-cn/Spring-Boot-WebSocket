@@ -44,7 +44,7 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
      * key：群号
      * values：全部群聊成员
      */
-    private static Map<String, List<Map<String, WebSocketSession>>> chatRoomUsers;
+    private static Map<String, List<String>> chatRoomUsers;
 
     static {
         allUsers = new HashMap<>();
@@ -119,7 +119,7 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
 
         allUsers.remove(name);
 
-        for (Map.Entry<String, List<Map<String, WebSocketSession>>> entry : chatRoomUsers.entrySet()) {
+        for (Map.Entry<String, List<String>> entry : chatRoomUsers.entrySet()) {
 
 
         }
