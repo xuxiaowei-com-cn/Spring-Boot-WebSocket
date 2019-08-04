@@ -62,6 +62,7 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
      */
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+        super.afterConnectionEstablished(session);
 
         // 客户端与服务器端建立连接后，此处记录谁上线了
         Map<String, Object> attributes = session.getAttributes();
@@ -69,8 +70,6 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
         System.err.println("上线: " + name);
 
         allUsers.put(name, session);
-
-        super.afterConnectionEstablished(session);
     }
 
     /**
@@ -80,13 +79,12 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
      */
     @Override
     public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
+        super.handleMessage(session, message);
 
         Map<String, Object> attributes = session.getAttributes();
         String name = attributes.get(HandshakeInterceptorConfiguration.WEB_SOCKET_USER_NAME).toString();
         System.err.println("接收到用户: " + name + " 的消息");
         System.err.println("消息内容：" + message.getPayload().toString());
-
-        super.handleMessage(session, message);
     }
 
     /**
@@ -96,13 +94,12 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
      */
     @Override
     public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
+        super.handleTransportError(session, exception);
 
         Map<String, Object> attributes = session.getAttributes();
         String name = attributes.get(HandshakeInterceptorConfiguration.WEB_SOCKET_USER_NAME).toString();
         System.err.println("接收到用户: " + name + " 的异常");
         System.err.println("异常信息：" + exception.getMessage());
-
-        super.handleTransportError(session, exception);
     }
 
     /**
@@ -113,6 +110,7 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
      */
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus closeStatus) throws Exception {
+        super.afterConnectionClosed(session, closeStatus);
 
         // 客户端与服务器端断开连接后，此处记录谁下线了
         Map<String, Object> attributes = session.getAttributes();
@@ -121,7 +119,10 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
 
         allUsers.remove(name);
 
-        super.afterConnectionClosed(session, closeStatus);
+        for (Map.Entry<String, List<Map<String, WebSocketSession>>> entry : chatRoomUsers.entrySet()) {
+
+
+        }
     }
 
 }
