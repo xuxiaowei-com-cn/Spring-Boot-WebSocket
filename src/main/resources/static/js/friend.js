@@ -30,7 +30,7 @@ function connect() {
         console.log('Stomp SockJS 已连接');
 
         // 订阅 '/user/queue/friend' 发送的消息，这里与 messagingTemplate.convertAndSendToUser 中定义的保持一致。
-        // 多了一个 /user ，并且这个 /user 是必须的，使用了 /user 才会发送到制定的用户
+        // 多了一个 /user ，并且这个 /user 是必须的，使用了 /user 才会发送到制定的用户，参见 SimpMessagingTemplate
         // 这个是在控制器的 @SendTo 中定义的。
         // 不需要写域名（域名同上）
         // 订阅来自 @SendTo() 的消息
