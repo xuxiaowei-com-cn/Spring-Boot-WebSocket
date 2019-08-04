@@ -95,7 +95,7 @@ public class WebSocketMessageBrokerConfigurerConfiguration implements WebSocketM
      */
     @Override
     public void configureWebSocketTransport(WebSocketTransportRegistration registry) {
-        registry.addDecoratorFactory(new WebSocketHandlerDecoratorFactoryConfiguration());
+        registry.addDecoratorFactory(WebSocketHandlerDecoratorConfiguration::new);
     }
 
 //    /**
