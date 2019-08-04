@@ -15,10 +15,8 @@
  */
 package cn.com.xuxiaowei.websocket.configuration;
 
-import org.springframework.web.socket.CloseStatus;
-import org.springframework.web.socket.WebSocketHandler;
-import org.springframework.web.socket.WebSocketMessage;
-import org.springframework.web.socket.WebSocketSession;
+import org.springframework.web.socket.*;
+import org.springframework.web.socket.handler.ConcurrentWebSocketSessionDecorator;
 import org.springframework.web.socket.handler.WebSocketHandlerDecorator;
 
 import java.util.HashMap;
@@ -58,6 +56,10 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
     /**
      * 在WebSocket协商成功并且WebSocket连接打开并准备好使用后调用。
      *
+     * @param session 发送WebSocket消息：{@link TextMessage}或{@link BinaryMessage}。
+     *                <p><strong>注意：</strong>底层标准WebSocket会话（JSR-356）不允许并发发送。
+     *                因此必须同步发送。
+     *                为了确保这一点，一个选项是使用{@link ConcurrentWebSocketSessionDecorator}包装{@link WebSocketSession}。
      * @throws Exception 此方法可以处理或传播异常; 有关详细信息，请参阅类级Javadoc。
      */
     @Override
