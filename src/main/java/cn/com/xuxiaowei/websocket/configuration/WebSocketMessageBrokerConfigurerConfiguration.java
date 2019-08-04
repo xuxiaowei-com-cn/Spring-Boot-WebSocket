@@ -21,6 +21,7 @@ import java.util.List;
  * 这是控制器支持使用{@link MessageMapping},就像使用{@link RequestMapping}一样。
  *
  * @author xuxiaowei
+ * @see <a href="https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/web.html#websocket-fallback-sockjs-client">SockJsClient</a>
  * @since 0.0.1
  */
 @Configuration
