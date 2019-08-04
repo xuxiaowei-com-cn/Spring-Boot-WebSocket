@@ -9,7 +9,6 @@ import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 
-import java.net.URI;
 import java.util.Map;
 
 /**
@@ -23,16 +22,6 @@ import java.util.Map;
 public class HandshakeInterceptorConfiguration implements HandshakeInterceptor {
 
     /**
-     * WebSocket URL
-     */
-    static final String WEB_SOCKET_URL = "WEB_SOCKET_URL";
-
-    /**
-     * 聊天室标识
-     */
-    static final String CHAT_ROOM = "chatRoom";
-
-    /**
      * @param attributes 用于在{@link WebSocketHandler}中的{@link WebSocketSession#getAttributes()}中获取
      */
     @Override
@@ -41,19 +30,6 @@ public class HandshakeInterceptorConfiguration implements HandshakeInterceptor {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String name = authentication.getName();
-
-        URI uri = request.getURI();
-        attributes.put(WEB_SOCKET_URL, uri);
-
-        String path = uri.getPath();
-        String[] pathSplit = path.split("/");
-        if (pathSplit.length > 1) {
-            String pathSplit1 = pathSplit[1];
-            if (CHAT_ROOM.equals(pathSplit1)) {
-                String pathSplit2 = pathSplit[2];
-                attributes.put(CHAT_ROOM, pathSplit2);
-            }
-        }
 
         log.debug("");
         log.debug("用户：" + name + " 建立连接");
