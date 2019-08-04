@@ -86,6 +86,10 @@ public class WebSocketMessageBrokerConfigurerConfiguration implements WebSocketM
 
     }
 
+    /**
+     * 可将不同的 STOMP 的 endpoint 指定不同的{@link HandshakeInterceptor}，
+     * 这里使用同一个
+     */
     @Bean
     public HandshakeInterceptor handshakeInterceptorConfiguration() {
         return new HandshakeInterceptorConfiguration();
