@@ -23,11 +23,6 @@ import java.util.Map;
 public class HandshakeInterceptorConfiguration implements HandshakeInterceptor {
 
     /**
-     * 用户名
-     */
-    static final String WEB_SOCKET_USER_NAME = "WEB_SOCKET_USER_NAME";
-
-    /**
      * WebSocket URL
      */
     static final String WEB_SOCKET_URL = "WEB_SOCKET_URL";
@@ -46,7 +41,6 @@ public class HandshakeInterceptorConfiguration implements HandshakeInterceptor {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String name = authentication.getName();
-        attributes.put(WEB_SOCKET_USER_NAME, name);
 
         URI uri = request.getURI();
         attributes.put(WEB_SOCKET_URL, uri);

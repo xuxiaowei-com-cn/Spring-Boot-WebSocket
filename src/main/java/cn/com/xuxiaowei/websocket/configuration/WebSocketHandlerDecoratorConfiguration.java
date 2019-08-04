@@ -19,6 +19,7 @@ import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.ConcurrentWebSocketSessionDecorator;
 import org.springframework.web.socket.handler.WebSocketHandlerDecorator;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,8 +68,9 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
         super.afterConnectionEstablished(session);
 
         // 客户端与服务器端建立连接后，此处记录谁上线了
-        Map<String, Object> attributes = session.getAttributes();
-        String name = attributes.get(HandshakeInterceptorConfiguration.WEB_SOCKET_USER_NAME).toString();
+        Principal principal = session.getPrincipal();
+        assert principal != null;
+        String name = principal.getName();
         System.err.println("上线: " + name);
 
         allUsers.put(name, session);
@@ -83,8 +85,9 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
     public void handleMessage(WebSocketSession session, WebSocketMessage<?> message) throws Exception {
         super.handleMessage(session, message);
 
-        Map<String, Object> attributes = session.getAttributes();
-        String name = attributes.get(HandshakeInterceptorConfiguration.WEB_SOCKET_USER_NAME).toString();
+        Principal principal = session.getPrincipal();
+        assert principal != null;
+        String name = principal.getName();
         System.err.println("接收到用户: " + name + " 的消息");
         System.err.println("消息内容：" + message.getPayload().toString());
     }
@@ -98,8 +101,9 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
     public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
         super.handleTransportError(session, exception);
 
-        Map<String, Object> attributes = session.getAttributes();
-        String name = attributes.get(HandshakeInterceptorConfiguration.WEB_SOCKET_USER_NAME).toString();
+        Principal principal = session.getPrincipal();
+        assert principal != null;
+        String name = principal.getName();
         System.err.println("接收到用户: " + name + " 的异常");
         System.err.println("异常信息：" + exception.getMessage());
     }
@@ -115,8 +119,9 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
         super.afterConnectionClosed(session, closeStatus);
 
         // 客户端与服务器端断开连接后，此处记录谁下线了
-        Map<String, Object> attributes = session.getAttributes();
-        String name = attributes.get(HandshakeInterceptorConfiguration.WEB_SOCKET_USER_NAME).toString();
+        Principal principal = session.getPrincipal();
+        assert principal != null;
+        String name = principal.getName();
         System.err.println("离线: " + name);
 
         allUsers.remove(name);
