@@ -43,6 +43,9 @@
         <!-- https://mvnrepository.com/artifact/org.webjars/jquery -->
         <webjars-jquery.version>3.4.1</webjars-jquery.version>
 
+        <!-- fastjson -->
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <fastjson.version>1.2.59</fastjson.version>
 
     </properties>
 
@@ -79,6 +82,11 @@
             <version>${webjars-jquery.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
+        </dependency>
 
         <!-- 以上为项目自定义依赖 -->
 
