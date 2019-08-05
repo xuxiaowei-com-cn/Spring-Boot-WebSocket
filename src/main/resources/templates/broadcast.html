@@ -36,30 +36,34 @@
         </div>
     </div>
 
+    <div class="form-group" id="online-number" style="display: none;">
+        <label for="number">在线用户</label>
+        <input type="text" class="form-control" id="number" aria-describedby="numberHelp" readonly>
+        <small id="numberHelp" class="form-text text-muted">实时显示在线用户数</small>
+    </div>
+
+    <div id="online"></div>
+
     <div id="isConnect" style="display: none;">
 
-        <form id="form-welcome">
+        <div class="form-group">
+            <label for="name">用户</label>
+            <input type="text" class="form-control" id="name" aria-describedby="nameHelp" th:value="${name}" readonly>
+            <small id="nameHelp" class="form-text text-muted">登录时的用户名。</small>
+        </div>
 
-            <div class="form-group">
-                <label for="name">用户</label>
-                <input type="text" class="form-control" id="name" aria-describedby="nameHelp" th:value="${name}" readonly>
-                <small id="nameHelp" class="form-text text-muted">登录时的用户名。</small>
+        <div class="form-group">
+            <label for="msg">需要广播的消息</label>
+            <input type="text" class="form-control" id="msg" name="msg" aria-describedby="msgHelp">
+            <small id="msgHelp" class="form-text text-muted">输入你想广播的消息</small>
+        </div>
+
+        <div class="form-group">
+            <label for="send">发送广播消息：</label>
+            <div>
+                <button type="submit" class="btn btn-secondary" id="send">发送</button>
             </div>
-
-            <div class="form-group">
-                <label for="msg">需要广播的消息</label>
-                <input type="text" class="form-control" id="msg" name="msg" aria-describedby="msgHelp">
-                <small id="msgHelp" class="form-text text-muted">输入你想广播的消息</small>
-            </div>
-
-            <div class="form-group">
-                <label for="send">发送广播消息：</label>
-                <div>
-                    <button type="submit" class="btn btn-secondary" id="send">发送</button>
-                </div>
-            </div>
-
-        </form>
+        </div>
 
         <div class="form-group">
             <label for="conversation">来自广播的消息：</label>
