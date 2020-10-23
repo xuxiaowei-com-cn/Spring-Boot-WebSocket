@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.6.RELEASE</version>
+        <version>2.3.4.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>cn.com.xuxiaowei</groupId>
@@ -20,7 +20,7 @@
 
         <!-- 提供 JAR 包（暂未使用） -->
         <!-- https://mvnrepository.com/artifact/org.webjars/webjars-locator-core -->
-        <webjars-locator-core.version>0.38</webjars-locator-core.version>
+        <webjars-locator-core.version>0.46</webjars-locator-core.version>
 
         <!-- 提供 sockjs -->
         <!-- 引入方式：/webjars/sockjs-client/1.1.2/sockjs.min.js -->
@@ -34,18 +34,18 @@
         <stomp-websocket.version>2.3.3-1</stomp-websocket.version>
 
         <!-- 提供 bootstrap -->
-        <!-- 引入方式：/webjars/bootstrap/4.3.1/css/bootstrap.min.css -->
+        <!-- 引入方式：/webjars/bootstrap/4.5.3/css/bootstrap.min.css -->
         <!-- https://mvnrepository.com/artifact/org.webjars/bootstrap -->
-        <webjars-bootstrap.version>4.3.1</webjars-bootstrap.version>
+        <webjars-bootstrap.version>4.5.3</webjars-bootstrap.version>
 
         <!-- 提供 jquery -->
-        <!-- 引入方式：/webjars/jquery/3.4.1/jquery.min.js -->
+        <!-- 引入方式：/webjars/jquery/3.5.1/jquery.min.js -->
         <!-- https://mvnrepository.com/artifact/org.webjars/jquery -->
-        <webjars-jquery.version>3.4.1</webjars-jquery.version>
+        <webjars-jquery.version>3.5.1</webjars-jquery.version>
 
         <!-- fastjson -->
         <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
-        <fastjson.version>1.2.59</fastjson.version>
+        <fastjson.version>1.2.74</fastjson.version>
 
     </properties>
 
