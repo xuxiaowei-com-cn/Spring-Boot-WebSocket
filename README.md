@@ -5,7 +5,7 @@
 - 尊重他人的劳动成果，转载请注明地址。
 
 <p align=center>
-  <a href="https://xuxiaowei.com.cn">
+  <a href="http://xuxiaowei.com.cn">
     <img src="https://cdn2.xuxiaowei.com.cn/img/QRCode.png/xuxiaowei.com.cn" alt="徐晓伟工作室" width="360">
   </a>
 </p>
