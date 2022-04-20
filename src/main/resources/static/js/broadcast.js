@@ -38,30 +38,30 @@ function connect() {
             showMessage(body.from, body.msg);
         });
 
-        // 服务端 WebSocketHandler 发送的消息
-        socket.onmessage = function (e) {
-            var data = JSON.parse(e.data);
-            var type = data.type;
-            var number = data.number;
-            if (type === "onlineMsg") {
-                var username = data.username;
-                var online = data.online;
-                if (online === true) {
-                    console.log("上线用户", username)
-                } else if (online === false) {
-                    console.log("下线用户", username)
-                } else {
-                    console.log("参数 online 类型错误：", online)
-                }
-
-            } else if (type === "onlineNum") {
-                var users = data.users;
-                console.log("在线用户：" + users)
-            } else {
-                console.log("未知 type：", type)
-            }
-            console.log("在线用户人数", number);
-        };
+        // // 服务端 WebSocketHandler 发送的消息
+        // socket.onmessage = function (e) {
+        //     var data = JSON.parse(e.data);
+        //     var type = data.type;
+        //     var number = data.number;
+        //     if (type === "onlineMsg") {
+        //         var username = data.username;
+        //         var online = data.online;
+        //         if (online === true) {
+        //             console.log("上线用户", username)
+        //         } else if (online === false) {
+        //             console.log("下线用户", username)
+        //         } else {
+        //             console.log("参数 online 类型错误：", online)
+        //         }
+        //
+        //     } else if (type === "onlineNum") {
+        //         var users = data.users;
+        //         console.log("在线用户：" + users)
+        //     } else {
+        //         console.log("未知 type：", type)
+        //     }
+        //     console.log("在线用户人数", number);
+        // };
 
     }, function (err) { // 连接异常
         console.log("连接异常：", err);
