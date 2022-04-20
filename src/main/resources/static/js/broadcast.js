@@ -44,7 +44,7 @@ function connect() {
             }
         });
 
-        // // 服务端 WebSocketHandler 发送的消息
+        // // 服务端 WebSocketHandler 发送的消息（socket.onmessage 会接管 stompClient.subscribe）
         // socket.onmessage = function (e) {
         //     var data = JSON.parse(e.data);
         //     var type = data.type;
