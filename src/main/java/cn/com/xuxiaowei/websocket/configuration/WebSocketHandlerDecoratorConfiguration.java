@@ -16,6 +16,7 @@
 package cn.com.xuxiaowei.websocket.configuration;
 
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.ConcurrentWebSocketSessionDecorator;
 import org.springframework.web.socket.handler.WebSocketHandlerDecorator;
@@ -35,6 +36,8 @@ import java.util.Set;
  */
 public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDecorator {
 
+    private SimpMessagingTemplate messagingTemplate;
+
     /**
      * 总在线用户
      */
@@ -53,8 +56,12 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
         chatRoomUsers = new HashMap<>();
     }
 
-    WebSocketHandlerDecoratorConfiguration(WebSocketHandler delegate) {
+    public WebSocketHandlerDecoratorConfiguration(WebSocketHandler delegate) {
         super(delegate);
+    }
+
+    public void setMessagingTemplate(SimpMessagingTemplate messagingTemplate) {
+        this.messagingTemplate = messagingTemplate;
     }
 
     /**
@@ -103,6 +110,9 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
         map.put("username", name);
         map.put("number", allUsers.size());
         String payload = JSONObject.toJSONString(map);
+
+        // 发送上线下通知
+        messagingTemplate.convertAndSend("/topic/broadcast", payload);
 
         for (Map.Entry<String, WebSocketSession> entry : allUsers.entrySet()) {
             String key = entry.getKey();

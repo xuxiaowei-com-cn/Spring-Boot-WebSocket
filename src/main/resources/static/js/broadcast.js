@@ -35,7 +35,13 @@ function connect() {
         // 订阅来自 @SendTo() 的消息
         stompClient.subscribe('/topic/broadcast', function (message) {
             var body = JSON.parse(message.body);
-            showMessage(body.from, body.msg);
+            if (body.online === true) {
+                console.log('上线通知', body)
+            } else if (body.online === false) {
+                console.log('下线通知', body)
+            } else {
+                showMessage(body.from, body.msg);
+            }
         });
 
         // // 服务端 WebSocketHandler 发送的消息

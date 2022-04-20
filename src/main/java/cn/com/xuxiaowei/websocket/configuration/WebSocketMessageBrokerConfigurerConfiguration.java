@@ -1,14 +1,18 @@
 package cn.com.xuxiaowei.websocket.configuration;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketTransportRegistration;
+import org.springframework.web.socket.handler.WebSocketHandlerDecoratorFactory;
 import org.springframework.web.socket.server.HandshakeInterceptor;
 
 import java.util.ArrayList;
@@ -27,6 +31,13 @@ import java.util.List;
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebSocketMessageBrokerConfigurerConfiguration implements WebSocketMessageBrokerConfigurer {
+
+    private SimpMessagingTemplate messagingTemplate;
+
+    @Autowired
+    public void setMessagingTemplate(SimpMessagingTemplate messagingTemplate) {
+        this.messagingTemplate = messagingTemplate;
+    }
 
     /**
      * 配置消息代理选项。
@@ -100,7 +111,16 @@ public class WebSocketMessageBrokerConfigurerConfiguration implements WebSocketM
      */
     @Override
     public void configureWebSocketTransport(WebSocketTransportRegistration registry) {
-        registry.addDecoratorFactory(WebSocketHandlerDecoratorConfiguration::new);
+//        registry.addDecoratorFactory(WebSocketHandlerDecoratorConfiguration::new);
+
+        registry.addDecoratorFactory(new WebSocketHandlerDecoratorFactory() {
+            @Override
+            public WebSocketHandler decorate(WebSocketHandler handler) {
+                WebSocketHandlerDecoratorConfiguration webSocketHandlerDecoratorConfiguration = new WebSocketHandlerDecoratorConfiguration(handler);
+                webSocketHandlerDecoratorConfiguration.setMessagingTemplate(messagingTemplate);
+                return webSocketHandlerDecoratorConfiguration;
+            }
+        });
     }
 
 //    /**
