@@ -16,6 +16,7 @@
 package cn.com.xuxiaowei.websocket.configuration;
 
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.ConcurrentWebSocketSessionDecorator;
@@ -23,10 +24,7 @@ import org.springframework.web.socket.handler.WebSocketHandlerDecorator;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * WebSocket 消息和生命周期事件的处理程序。
@@ -111,14 +109,20 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
         map.put("number", allUsers.size());
         String payload = JSONObject.toJSONString(map);
 
-        // 发送上线下通知
-        messagingTemplate.convertAndSend("/topic/broadcast", payload);
+        // 发送上线下通知（方式一）
+//        messagingTemplate.convertAndSend("/topic/broadcast", payload);
 
         for (Map.Entry<String, WebSocketSession> entry : allUsers.entrySet()) {
             String key = entry.getKey();
             if (!name.equals(key)) {
                 WebSocketSession value = entry.getValue();
-                value.sendMessage(new TextMessage(payload, true));
+
+                // 发送上线下通知（方式二）
+                messagingTemplate.convertAndSend("/topic/broadcast", payload,
+                        Collections.singletonMap(SimpMessageHeaderAccessor.SESSION_ID_HEADER, value.getId()));
+
+                // 发送消息：无法解析（方式三）
+//                value.sendMessage(new TextMessage(payload, true));
             }
         }
     }
