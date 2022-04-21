@@ -16,6 +16,8 @@
 package cn.com.xuxiaowei.websocket.configuration;
 
 import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationContext;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.socket.*;
@@ -32,9 +34,16 @@ import java.util.*;
  * @author xuxiaowei
  * @since 0.0.1
  */
+@Slf4j
 public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDecorator {
 
     private SimpMessagingTemplate messagingTemplate;
+
+    public void setApplicationContext(ApplicationContext applicationContext) {
+        messagingTemplate = applicationContext.getBean(SimpMessagingTemplate.class);
+
+        log.info("使用 ApplicationContext 获取 SimpMessagingTemplate：{}", messagingTemplate);
+    }
 
     /**
      * 总在线用户
@@ -56,10 +65,6 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
 
     public WebSocketHandlerDecoratorConfiguration(WebSocketHandler delegate) {
         super(delegate);
-    }
-
-    public void setMessagingTemplate(SimpMessagingTemplate messagingTemplate) {
-        this.messagingTemplate = messagingTemplate;
     }
 
     /**
