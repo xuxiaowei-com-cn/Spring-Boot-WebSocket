@@ -1,6 +1,7 @@
 package cn.com.xuxiaowei.websocket.configuration;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.security.core.Authentication;
@@ -19,6 +20,7 @@ import java.util.Map;
  * @since 0.0.1
  */
 @Slf4j
+@Configuration
 public class HandshakeInterceptorConfiguration implements HandshakeInterceptor {
 
     /**

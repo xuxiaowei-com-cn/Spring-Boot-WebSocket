@@ -1,7 +1,6 @@
 package cn.com.xuxiaowei.websocket.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -32,9 +31,16 @@ public class WebSocketMessageBrokerConfigurerConfiguration implements WebSocketM
 
     private WebSocketHandlerDecoratorFactory webSocketHandlerDecoratorFactory;
 
+    private HandshakeInterceptor handshakeInterceptor;
+
     @Autowired
     public void setWebSocketHandlerDecoratorFactory(WebSocketHandlerDecoratorFactory webSocketHandlerDecoratorFactory) {
         this.webSocketHandlerDecoratorFactory = webSocketHandlerDecoratorFactory;
+    }
+
+    @Autowired
+    public void setHandshakeInterceptor(HandshakeInterceptor handshakeInterceptor) {
+        this.handshakeInterceptor = handshakeInterceptor;
     }
 
     /**
@@ -79,29 +85,20 @@ public class WebSocketMessageBrokerConfigurerConfiguration implements WebSocketM
         // SockJS 客户端将尝试连接到“/toAll”并使用可用的最佳传输（toAll，xhr-streaming，xhr-polling等）。
         // 启用 SockJS 后备选项。
         registry.addEndpoint("/toAll")
-                .addInterceptors(handshakeInterceptorConfiguration())
+                .addInterceptors(handshakeInterceptor)
                 .setAllowedOrigins(origins.toArray(new String[]{}))
                 .withSockJS();
 
         registry.addEndpoint("/p2p")
-                .addInterceptors(handshakeInterceptorConfiguration())
+                .addInterceptors(handshakeInterceptor)
                 .setAllowedOrigins(origins.toArray(new String[]{}))
                 .withSockJS();
 
         registry.addEndpoint("/chatRoom/{chatRoomId}")
-                .addInterceptors(handshakeInterceptorConfiguration())
+                .addInterceptors(handshakeInterceptor)
                 .setAllowedOrigins(origins.toArray(new String[]{}))
                 .withSockJS();
 
-    }
-
-    /**
-     * 可将不同的 STOMP 的 endpoint 指定不同的{@link HandshakeInterceptor}，
-     * 这里使用同一个
-     */
-    @Bean
-    public HandshakeInterceptor handshakeInterceptorConfiguration() {
-        return new HandshakeInterceptorConfiguration();
     }
 
     /**
