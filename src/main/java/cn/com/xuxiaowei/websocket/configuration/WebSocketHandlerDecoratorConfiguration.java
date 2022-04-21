@@ -26,7 +26,11 @@ import org.springframework.web.socket.handler.WebSocketHandlerDecorator;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * WebSocket 消息和生命周期事件的处理程序。
@@ -37,30 +41,17 @@ import java.util.*;
 @Slf4j
 public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDecorator {
 
+    /**
+     * 总在线用户
+     */
+    private static final Map<String, WebSocketSession> ALL_WEB_SOCKET_SESSION = new ConcurrentHashMap<>();
+
     private SimpMessagingTemplate messagingTemplate;
 
     public void setApplicationContext(ApplicationContext applicationContext) {
         messagingTemplate = applicationContext.getBean(SimpMessagingTemplate.class);
 
         log.info("使用 ApplicationContext 获取 SimpMessagingTemplate：{}", messagingTemplate);
-    }
-
-    /**
-     * 总在线用户
-     */
-    private static Map<String, WebSocketSession> allUsers;
-
-    /**
-     * 群聊在线人数
-     * <p>
-     * key：群号
-     * values：全部群聊成员
-     */
-    private static Map<String, List<String>> chatRoomUsers;
-
-    static {
-        allUsers = new HashMap<>();
-        chatRoomUsers = new HashMap<>();
     }
 
     public WebSocketHandlerDecoratorConfiguration(WebSocketHandler delegate) {
@@ -86,7 +77,7 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
         String name = principal.getName();
         System.err.println("上线: " + name);
 
-        allUsers.put(name, session);
+        ALL_WEB_SOCKET_SESSION.put(name, session);
 
         // 用户上线通知
         // 放在添加用户后面
@@ -105,19 +96,19 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
      * @param name   上线用户名
      * @param online true 上线，false 下线
      */
-    private void onlineMsg(String name, boolean online) throws IOException {
+    private void onlineMsg(String name, boolean online) {
         Map<String, Object> map = new HashMap<>(4);
 
         map.put("type", "onlineMsg");
         map.put("online", online);
         map.put("username", name);
-        map.put("number", allUsers.size());
+        map.put("number", ALL_WEB_SOCKET_SESSION.size());
         String payload = JSONObject.toJSONString(map);
 
         // 发送上线下通知（方式一）
 //        messagingTemplate.convertAndSend("/topic/broadcast", payload);
 
-        for (Map.Entry<String, WebSocketSession> entry : allUsers.entrySet()) {
+        for (Map.Entry<String, WebSocketSession> entry : ALL_WEB_SOCKET_SESSION.entrySet()) {
             String key = entry.getKey();
             if (!name.equals(key)) {
                 WebSocketSession value = entry.getValue();
@@ -140,13 +131,13 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
      * @param name 当前用户
      */
     private void onlineNum(String name) throws IOException {
-        Set<String> users = allUsers.keySet();
+        Set<String> users = ALL_WEB_SOCKET_SESSION.keySet();
         Map<String, Object> map = new HashMap<>(4);
         map.put("type", "onlineNum");
-        map.put("number", allUsers.size());
+        map.put("number", ALL_WEB_SOCKET_SESSION.size());
         map.put("users", users);
         String payload = JSONObject.toJSONString(map);
-        WebSocketSession webSocketSession = allUsers.get(name);
+        WebSocketSession webSocketSession = ALL_WEB_SOCKET_SESSION.get(name);
         webSocketSession.sendMessage(new TextMessage(payload, true));
     }
 
@@ -198,16 +189,11 @@ public class WebSocketHandlerDecoratorConfiguration extends WebSocketHandlerDeco
         String name = principal.getName();
         System.err.println("离线: " + name);
 
-        allUsers.remove(name);
+        ALL_WEB_SOCKET_SESSION.remove(name);
 
         // 用户下线通知
         // 放在移除用户后面
         onlineMsg(name, false);
-
-        for (Map.Entry<String, List<String>> entry : chatRoomUsers.entrySet()) {
-
-
-        }
     }
 
 }
