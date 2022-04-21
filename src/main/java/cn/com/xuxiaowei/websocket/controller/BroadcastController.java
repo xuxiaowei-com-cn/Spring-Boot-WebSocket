@@ -57,7 +57,7 @@ public class BroadcastController {
         // 模拟延迟
         // <code>Thread.sleep(1000);</code>
 
-        String from = "来自（8080端口）用户：" + principal.getName();
+        String from = "来自用户：" + principal.getName();
         String msg = HtmlUtils.htmlEscape(message.getMsg());
 
         // 将特殊字符转换为HTML字符引用。
